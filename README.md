@@ -1,2 +1,2 @@
 # 班级服务平台
-本项目是基于xadmin的班级云服务平台，致力于为班级干部提供优质，快捷，方便以及数字化数据的体验
+This project is a class cloud service platform based on xadmin, committed to providing class cadres with high-quality, fast, convenient, and digital data experience
