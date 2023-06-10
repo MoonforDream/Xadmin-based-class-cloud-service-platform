@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>添加学生</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+  <script src="https://cdn.bootcss.com/sweetalert/2.1.0/sweetalert.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+          {% if message1 %}
+                <script>
+                    swal('平台通知','{{ message1 }}','success');
+                </script>
+          {% endif %}
+  <div class="container">
+    <h1 class="text-center my-5">添加学生</h1>
+    <form action="/class/add/" method="post">
+      <div class="form-group row">
+        <label for="inputName" class="col-sm-2 col-form-label">姓名</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="inputName" placeholder="请输入学生姓名" name="username" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputID" class="col-sm-2 col-form-label">学号</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="inputID" placeholder="请输入学生学号" name="stu_id" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputClassNo" class="col-sm-2 col-form-label">班级序号</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="inputClassNo" placeholder="请输入学生班级序号" name="stunum" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputPosition" class="col-sm-2 col-form-label">职位</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="inputPosition" name="stu_work" required>
+            <option value="班长">班长</option>
+            <option value="副班长">副班长</option>
+            <option value="学习委员">学习委员</option>
+            <option value="纪律委员">纪律委员</option>
+            <option value="体育委员">体育委员</option>
+            <option value="心理委员">心理委员</option>
+            <option value="宣传委员">宣传委员</option>
+            <option value="学生">学生</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-10 offset-sm-2">
+          <button type="submit" class="btn btn-primary">添加学生</button>
+        </div>
+      </div>
+    </form>
+  </div>
+<script type="text/javascript">
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+</script>
+</body>
+</html>

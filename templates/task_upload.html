@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+	<head>
+	        <meta charset="UTF-8">
+	        <title>欢迎页面-X-admin2.2</title>
+	        <meta name="renderer" content="webkit">
+	        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+	        <link rel="stylesheet" href="{% static 'css/font.css' %}">
+	        <link rel="stylesheet" href="{% static 'css/xadmin.css' %}">
+	        <script src="{% static 'lib/layui/layui.js' %}" charset="utf-8"></script>
+	        <script type="text/javascript" src="{% static 'js/xadmin.js' %}"></script>
+	        <!--[if lt IE 9]>
+	          <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+	          <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+	        <![endif]-->
+            <style type="text/css">
+                .container{
+                    justify-content: center;
+                    align-items: center;
+                    background-color: white;
+                }
+                .layui-upload-drag{
+                    padding-top: 23%;
+                    width: 90%;
+                    display: flex;
+                    background-color: white;
+                    height: 60vh;
+                }
+            </style>
+	</head>
+	<body>
+		<div class="layui-upload-drag" style="display: block;" id="drag">
+		  <i class="layui-icon layui-icon-upload"></i>
+		  <div class='container'>点击上传，或将文件拖拽到此处</div>
+		  <div class="layui-hide" id="ID-upload-demo-preview">
+		    <hr> <img src="" alt="上传成功" style="max-width: 100%">
+		  </div>
+		</div>
+
+		<script>
+			layui.use(['upload','form','layer','laydate'], function(){
+			  var $ = layui.jquery
+          ,upload = layui.upload
+          ,form = layui.form;
+			  // 渲染
+			  upload.render({
+				elem: '#drag',
+				url: '/class/task_list/', // 此处用的是第三方的 http 请求演示，实际使用时改成您自己的上传接口即可。
+				accept:'file',
+				done: function(res){
+				  layer.msg('上传成功');
+				  $('#ID-upload-demo-preview').removeClass('layui-hide')
+				  .find('img').attr('src', res.files.file);
+				  $('<pre>').text(res.file).appendTo($('#ID-upload-demo-preview'));
+				  console.log(res)
+				}
+			  });
+			});
+		</script>
+	</body>
+</html>

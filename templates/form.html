@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+{% load static %}
+<html class="x-admin-sm">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+        <link rel="stylesheet" href="{% static 'lib/layui/css/layui.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font.css' %}">
+        <link rel="stylesheet" href="{% static 'css/xadmin.css' %}">
+        <script type="text/javascript" src="{% static 'js/xadmin.js' %}"></script>
+        <script src="https://cdn.bootcss.com/sweetalert/2.1.0/sweetalert.min.js"></script>
+        <!--[if lt IE 9]>
+          <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+          <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <style>
+        /* 设置表单样式 */
+        form {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+		input[type="datetime"],
+		select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #3E8E41;
+        }
+
+        /* 媒体查询：屏幕宽度小于500px时，表单宽度为100% */
+        @media screen and (max-width: 500px) {
+            form {
+                width: 100%;
+            }
+        }
+    </style>
+    </head>
+    <body>
+        <div class="x-nav">
+          <span class="layui-breadcrumb">
+            <a href="">首页</a>
+            <a href="">任务管理</a>
+            <a>
+              <cite>任务发布</cite></a>
+          </span>
+          <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
+            <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
+        </div>
+        {% if message %}
+            <script>
+                swal('平台通知','{{ message }}','success');
+            </script>
+        {% endif %}
+        {% if message1 %}
+            <script>
+                swal('平台通知','{{ message1 }}','error');
+            </script>
+        {% endif %}
+        <form action="/class/form/" method="post">
+        <h2>定位签到</h2>
+
+        <label for="end">截止时间：</label>
+        <input type="datetime" name="end" id="end" placeholder="2023-04-01 12:30:00" required>
+
+        <label for="radius">签到范围：</label>
+        <input type="text" name="radius" id="radius" required>
+
+        <input type="submit" value="发布">
+    </form>
+
+    <form action="/class/form/" method="post" enctype="multipart/form-data">
+        <h2>作业提交</h2>
+
+        <label for="work">任务名：</label>
+        <input type="text" name="work" id="work" required>
+
+        <label for="descibe">任务要求(描述)</label>
+        <input type="text" name="describe" id="descibe" placeholder="选填">
+
+		<label for="end1">截止时间：</label>
+		<input type="datetime" name="end1" id="end1" placeholder="2023-04-01 12:30:00" required>
+		
+		<label>附件上传：</label>
+		<div class="layui-upload">
+            <button type="button" class=" layui-btn" id="choiceList"><i class="iconfont icon-e645"></i>选择文件</button>
+            <div class="layui-upload-list layui-upList-minHeight">
+                <table class="layui-table">
+                    <thead>
+                        <tr>
+                            <th>文件名</th>
+                            <th>大小</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="demoList"></tbody>
+                    <input type="hidden" name="fileList" id="fileList">
+                </table>
+            </div> 
+        </div>
+		<hr/>
+		<input type="submit" value="发布">
+    </form>
+
+    <form action="/class/form/" method="post">
+        <h2>分组任务</h2>
+
+        <label for="task">任务名：</label>
+        <input type="text" name="task" id="task" required>
+
+        <label for="end2">截止时间：</label>
+        <input type="datetime" name="end2" id="end2" placeholder="2023-04-01 12:30:00" required>
+		
+		<label for="size">每组成员数量选择：</label>
+		<select name="size" id="size" required>
+			<option value="4">四人一组</option>
+			<option value="6">六人一组</option>
+			<option value="8">八人一组</option>
+			<option value="10">十人一组</option>
+		</select>
+        <input type="submit" value="发布">
+    </form>
+	<script src="{% static 'lib/layui/layui.all.js' %}" charset="utf-8"></script>
+	<script>
+    layui.use(['upload','form','layer','laydate'], function(){
+          var $ = layui.jquery
+          ,upload = layui.upload
+          ,form = layui.form;
+           
+          //多文件列表示例
+        $(function() {
+            var uploadFile = {
+                init: function() {
+                    this.upload();
+                },
+                //上传文件
+                upload: function() {
+                    layui.use('upload', function() {
+                        var $ = layui.jquery,
+                            upload = layui.upload;
+                        //多文件列表示例
+                        var demoListView = $('#demoList'),
+                            uploadListIns = upload.render({
+                                elem: '#choiceList',
+                                url: '/class/getfile/',
+                                accept: 'file',
+                                multiple: true,
+                                number: 1,
+                                auto: true,
+                                bindAction: '#choiceListAction',
+                                choose: function(obj) {
+                                    var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+                                    //读取本地文件
+                                    obj.preview(function(index, file, result) {
+                                        if($('#demoList tr td').eq(0).text() == 'xxx.txt') {
+                                            $('#demoList').empty();
+                                        }
+                                        var tr = $(['<tr id="upload-' + index + '">',
+                                            '<td>' + file.name + '</td>',
+                                            '<td>' + (file.size / 1014).toFixed(1) + 'kb</td>',
+                                            '<td>等待上传</td>',
+                                            '<td>',
+                                            '<div style="display:flex;">',
+                                            '<button class="layui-btn layui-btn-xs demo-reload layui-hide" style="flex:1;">重传</button>',
+                                            '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete" style="flex:1;">删除</button>',
+                                            '</div>',
+                                            '</td>',
+                                            '</tr>'
+                                        ].join(''));
+
+                                        //单个重传
+                                        tr.find('.demo-reload').on('click', function() {
+                                            obj.upload(index, file);
+                                        });
+
+                                        //删除
+                                        tr.find('.demo-delete').on('click', function() {
+                                            delete files[index]; //删除对应的文件
+                                            tr.remove();
+                                            uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+                                        });
+                                        demoListView.append(tr);
+                                    });
+                                },
+                                done: function(res, index, upload) {
+                                    if(res.code == 0) { //上传成功
+                                        var tr = demoListView.find('tr#upload-' + index),
+                                            tds = tr.children();
+                                        tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+                                        $('#fileList').val(JSON.stringify(files));
+                                        tds.eq(3).html(''); //清空操作
+                                        return delete this.files[index]; //删除文件队列已经上传成功的文件
+
+                                    }
+                                    this.error(index, upload, res.msg);
+                                },
+                                error: function(index, upload, msg) {
+                                    var tr = demoListView.find('tr#upload-' + index),
+                                        tds = tr.children();
+                                    tds.eq(2).html('<span style="color: #FF5722;">' + msg + '</span>');
+                                    tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+                                }
+                            });
+                    });
+                }
+            }
+            uploadFile.init();
+        });
+
+    });
+</script>
+    <script type="text/javascript">
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+</script>
+    </body>
+</html>

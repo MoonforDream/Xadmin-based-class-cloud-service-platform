@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>任务详情页</title>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/layui/2.5.6/css/layui.min.css">
+  <link rel="stylesheet" href="{% static 'css/font.css' %}">
+  <script src="https://cdn.bootcss.com/sweetalert/2.1.0/sweetalert.min.js"></script>
+  <style>
+	  .layui-row {
+	    display: flex;
+	    flex-direction: column;
+	  }
+  </style>
+</head>
+<body>
+  <div class="layui-container">
+    <div class="layui-row">
+      <div class="layui-col-md8">
+        <div class="layui-card">
+          <div class="layui-card-header">{{ task_name }}</div>
+          <div class="layui-card-body">
+            <div class="layui-row">
+              <div class="layui-col-md6">
+                <p>发布人：{{ send }}</p>
+                <p>发布时间：{{ start|safe }}</p>
+              </div>
+              <div class="layui-col-md6">
+                <p>截止时间：{{ end|safe }}</p>
+                <p>状态：{{ status }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="layui-row">
+              <div class="layui-col-md12">
+                <p>任务描述：</p>
+                <p>{{ task_describe }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="layui-col-md4">
+        <div class="layui-card">
+          <div class="layui-card-header">操作</div>
+          <div class="layui-card-body">
+            {% if path %}
+              <button class="layui-btn layui-btn-xs" style="flex:1;" id="download-btn"><i class="icon iconfont">&#xe714;</i> 下载附件</button>
+            {% endif %}
+            {% if filepath and staff == 1 %}
+            <button class="layui-btn layui-btn-xs" style="flex:1;" id="w"><i class="icon iconfont">&#xe741;</i> 作业数据</button>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/layui/2.5.6/layui.min.js"></script>
+  <script>
+    const downloadBtn = document.getElementById('download-btn');
+downloadBtn.addEventListener('click', () => {
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', '/class/describe/');
+  xhr.responseType = 'blob';
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      // 获取响应头中的文件名
+      const filename = xhr.getResponseHeader('Content-Disposition').split('filename=')[1];
+      // 创建下载链接并点击下载
+      const a = document.createElement('a');
+      const url = URL.createObjectURL(xhr.response);
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 0);
+    }
+  };
+  xhr.send(`task_id={{ task_id }}`);
+});
+  </script>
+<script>
+const downloadDataBtn = document.getElementById('w');
+downloadDataBtn.addEventListener('click', () => {
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', '/class/send/?task_id={{ task_id }}');
+  xhr.responseType = 'blob';
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      // 获取响应头中的文件名
+      const filename = xhr.getResponseHeader('Content-Disposition').split('filename=')[1];
+      // 创建下载链接并点击下载
+      const a = document.createElement('a');
+      const url = URL.createObjectURL(xhr.response);
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 0);
+    }
+  };
+  xhr.send();
+});
+</script>
+</body>
+</html>
