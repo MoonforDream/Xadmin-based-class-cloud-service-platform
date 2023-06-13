@@ -138,15 +138,7 @@ CACHES = {
     }
 }
 
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.qq.com'  # 腾讯QQ邮箱SMTP服务器地址
-EMAIL_PORT = 25  # SMTP服务的端口号
-EMAIL_HOST_USER = '3052573970@qq.com'  # 发送邮件的QQ邮箱
-EMAIL_HOST_PASSWORD = 'fctnciggjxdyddbd'  # 在QQ邮箱->设置->账户->"POP3/IMAP...服务"里得到的在第三方登录QQ邮箱授权码
-EMAIL_USE_TLS = False  # 与SMTP服务器通信时，是否启动TLS链接(安全链接)默认False
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-# EMAIL_USE_SSL = True
+#邮箱配置需要自己配置
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
