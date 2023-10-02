@@ -28,8 +28,6 @@ Download the files for branch retain, such as HelloWorld, classy, mycellery, etc
 
 3. Add sending email configuration at the end of the file
 
-   ![image-20231003001201923](https://github.com/MoonforDream/Xadmin-based-class-cloud-service-platform/blob/remain/image-20231003001201923.png)
-
 4. Open the terminal, enter Python manage. py makemigrations, Python manage. py migrate, and migrate the model layer to the database
 
 5. Open config.py and main.py in the mycellery folder, configure the Redis configuration inside as your own, and then change the sending email address of tasks. py in the email folder to your own
