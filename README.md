@@ -37,3 +37,10 @@ Download the files for branch retain, such as HelloWorld, classy, mycellery, etc
 
 
 ## 3. Run Project
+Run screenshot
+![image-20231003000956403](https://github.com/MoonforDream/Xadmin-based-class-cloud-service-platform/blob/main/Snipaste_2023-10-03_18-19-07.jpg)
+
+![image-20231003000956404](https://github.com/MoonforDream/Xadmin-based-class-cloud-service-platform/blob/main/Snipaste_2023-10-03_19-01-50.jpg)
+
+
+
