@@ -46,10 +46,10 @@
           <div class="layui-card-header">操作</div>
           <div class="layui-card-body">
             {% if path %}
-              <button class="layui-btn layui-btn-xs" style="flex:1;" id="download-btn"><i class="icon iconfont">&#xe714;</i> 下载附件</button>
+              <button class="layui-btn layui-btn-xs" style="flex:1;" id="download-btn" onclick="window.location.href='http://101.33.251.175:30032/class/download/?file={{ path }}'"><i class="icon iconfont">&#xe714;</i> 下载附件</button>
             {% endif %}
             {% if filepath and staff == 1 %}
-            <button class="layui-btn layui-btn-xs" style="flex:1;" id="w"><i class="icon iconfont">&#xe741;</i> 作业数据</button>
+                <button class="layui-btn layui-btn-xs" style="flex:1;" id="download-btn1" onclick="window.location.href='http://101.33.251.175:30032/class/download/?file={{ filepath }}'"><i class="icon iconfont">&#xe741;</i> 作业数据</button>
             {% endif %}
           </div>
         </div>
@@ -59,59 +59,6 @@
 
   <script src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.staticfile.org/layui/2.5.6/layui.min.js"></script>
-  <script>
-    const downloadBtn = document.getElementById('download-btn');
-downloadBtn.addEventListener('click', () => {
-  const xhr = new XMLHttpRequest();
-  xhr.open('POST', '/class/describe/');
-  xhr.responseType = 'blob';
-  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  xhr.onload = function() {
-    if (xhr.status === 200) {
-      // 获取响应头中的文件名
-      const filename = xhr.getResponseHeader('Content-Disposition').split('filename=')[1];
-      // 创建下载链接并点击下载
-      const a = document.createElement('a');
-      const url = URL.createObjectURL(xhr.response);
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(() => {
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }, 0);
-    }
-  };
-  xhr.send(`task_id={{ task_id }}`);
-});
-  </script>
-<script>
-const downloadDataBtn = document.getElementById('w');
-downloadDataBtn.addEventListener('click', () => {
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', '/class/send/?task_id={{ task_id }}');
-  xhr.responseType = 'blob';
-  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  xhr.onload = function() {
-    if (xhr.status === 200) {
-      // 获取响应头中的文件名
-      const filename = xhr.getResponseHeader('Content-Disposition').split('filename=')[1];
-      // 创建下载链接并点击下载
-      const a = document.createElement('a');
-      const url = URL.createObjectURL(xhr.response);
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(() => {
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }, 0);
-    }
-  };
-  xhr.send();
-});
-</script>
+
 </body>
 </html>

@@ -7,11 +7,14 @@ import redis
 
 
 @app.task
-def send_sms(email, uid):
+def send_sms(email, uid,flag):
     token = str(uuid.uuid4()).replace('-', '')
     uidb64 = urlsafe_base64_encode(force_bytes(uid))
-    url = 'http://127.0.0.1:8000/class/activate?uid=%s&token=%s'%(uidb64,token)
-    conn = redis.StrictRedis(host="127.0.0.1", port=6379, password="", db=3)
+    if flag==1:
+        url = 'http://101.33.251.175:30032/class/activate?uid=%s&token=%s'%(uidb64,token)
+    else:
+        url = 'http://101.33.251.175:30032/class/activate_app?uid=%s&token=%s' % (uidb64, token)
+    conn = redis.StrictRedis(host="127.0.0.1", port=6379, password="", db=6)
     conn.set(uid, token, ex=180)
     EMAIL_HOST_USER = '3052573970@qq.com'
     subject = '班级云服务平台邮箱激活'
@@ -24,11 +27,14 @@ def send_sms(email, uid):
     return send_status
 
 @app.task
-def send_pass(email, uid):
+def send_pass(email, uid,flag):
     token = str(uuid.uuid4()).replace('-', '')
     uidb64 = urlsafe_base64_encode(force_bytes(uid))
-    url = 'http://127.0.0.1:8000/class/modify?uid=%s&token=%s'%(uidb64,token)
-    conn = redis.StrictRedis(host="127.0.0.1", port=6379, password="", db=3)
+    if flag==1:
+        url = 'http://101.33.251.175:30032/class/modify?uid=%s&token=%s'%(uidb64,token)
+    else:
+        url = 'http://101.33.251.175:30032/class/modify_app?uid=%s&token=%s' % (uidb64, token)
+    conn = redis.StrictRedis(host="127.0.0.1", port=6379, password="", db=6)
     conn.set(uid, token, ex=180)
     EMAIL_HOST_USER = '3052573970@qq.com'
     subject = '班级云服务平台密码服务'
@@ -41,11 +47,14 @@ def send_pass(email, uid):
     return send_status
 
 @app.task
-def send_email(email, uid):
+def send_email(email, uid,flag):
     token = str(uuid.uuid4()).replace('-', '')
     uidb64 = urlsafe_base64_encode(force_bytes(uid))
-    url = 'http://127.0.0.1:8000/class/changeemail?uid=%s&token=%s'%(uidb64,token)
-    conn = redis.StrictRedis(host="127.0.0.1", port=6379, password="", db=3)
+    if flag==1:
+        url = 'http://101.33.251.175:30032/class/changeemail?uid=%s&token=%s'%(uidb64,token)
+    else:
+        url = 'http://101.33.251.175:30032/class/changeemail_app?uid=%s&token=%s' % (uidb64, token)
+    conn = redis.StrictRedis(host="127.0.0.1", port=6379, password="", db=6)
     conn.set(uid, token, ex=180)
     EMAIL_HOST_USER = '3052573970@qq.com'
     subject = '班级云服务平台邮箱服务'
@@ -58,11 +67,14 @@ def send_email(email, uid):
     return send_status
 
 @app.task
-def send_repass(email, uid):
+def send_repass(email, uid,flag):
     token = str(uuid.uuid4()).replace('-', '')
     uidb64 = urlsafe_base64_encode(force_bytes(uid))
-    url = 'http://127.0.0.1:8000/class/changepass?uid=%s&token=%s'%(uidb64,token)
-    conn = redis.StrictRedis(host="127.0.0.1", port=6379, password="", db=3)
+    if flag==1:
+        url = 'http://101.33.251.175:30032/class/changepass?uid=%s&token=%s'%(uidb64,token)
+    else:
+        url = 'http://101.33.251.175:30032/class/changepass_app?uid=%s&token=%s' % (uidb64, token)
+    conn = redis.StrictRedis(host="127.0.0.1", port=6379, password="", db=6)
     conn.set(uid, token, ex=180)
     EMAIL_HOST_USER = '3052573970@qq.com'
     subject = '班级云服务平台密码服务'

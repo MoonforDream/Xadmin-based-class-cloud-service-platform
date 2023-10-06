@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/font.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/logo2.ico' %}">
+	  <link rel="stylesheet" href="{% static 'css/xadmin.css' %}">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/layui/2.5.7/layui.all.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{% static 'lib/layui/layui.js' %}" charset="utf-8"></script>
+    <script src="https://cdn.bootcss.com/sweetalert/2.1.0/sweetalert.min.js"></script>
+
+    <title>学生信息</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin-top: 20px;
+            color: #4285f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .info, .form, .password {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 10px;
+        }
+
+        .info div, .form div, .password div {
+            display: flex;
+            align-items: center;
+        }
+
+        .info label, .form label, .password label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .info span {
+            display: inline-block;
+            padding: 5px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+
+        .form input[type="text"], .form input[type="number"], .form input[type="email"], .form input[type="tel"], .form input[type="password"] {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        .form button, .password button {
+            display: block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #4285f4;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .form button:hover, .password button:hover {
+            background-color: #2b5ab6;
+        }
+    </style>
+</head>
+<body>
+            {% if message2 %}
+                <script>
+                    swal('平台通知','{{ message2 }}','success');
+                </script>
+            {% endif %}
+    <div class="container">
+        <h1>学生信息</h1>
+        <div class="info">
+            <div class="username">
+                <label for="username">用户名：</label>
+                <span id="username">{{ username }}</span>
+            </div>
+            <div class="email">
+                <label for="email">邮箱：</label>
+                <span id="email">{{ email }}</span>
+            </div>
+            <div class="name">
+                <label for="name">姓名：</label>
+                <span id="name">{{ stu_name }}</span>
+            </div>
+            <div class="stu_id">
+                <label for="stu_id">学号：</label>
+                <span id="stu_id">{{ stu_id }}</span>
+            </div>
+            <div class="stunum">
+                <label for="stunum">班级序号：</label>
+                <span id="stunum">{{ stunum }}</span>
+            </div>
+            <div class="stu_work">
+                <label for="stu_work">职位：</label>
+                <span id="stu_work">{{ stu_work }}</span>
+            </div>
+        </div>
+        <div class="form">
+            <h2>修改学生信息</h2>
+            <form action="/class/modify_role/" method="post">
+                <input type="hidden" name="username" value="{{username}}"><br>
+                <div class="form-group row">
+                    <label for="name-input" class="col-sm-2 col-form-label">姓名：</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="name-input" name="stu_name" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="id-input" class="col-sm-2 col-form-label">学号：</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="id-input" name="stu_id" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="num-input" class="col-sm-2 col-form-label">序号：</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="num-input" name="stunum" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="work-input" class="col-sm-2 col-form-label">职位：</label>
+                    <div class="col-sm-10">
+                        <select id="work-input" name="stu_work"  class="form-control">
+                            <option value=""></option>
+                            <option value="班长">班长</option>
+                            <option value="副班长">副班长</option>
+                            <option value="学习委员">学习委员</option>
+                            <option value="纪律委员">纪律委员</option>
+                            <option value="体育委员">体育委员</option>
+                            <option value="心理委员">心理委员</option>
+                            <option value="宣传委员">宣传委员</option>
+                            <option value="学生">学生</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" id="edit-btn">保存修改</button>
+            </form>
+        </div>
+</body>
+
+<script type="text/javascript">
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+</script>
+</html>

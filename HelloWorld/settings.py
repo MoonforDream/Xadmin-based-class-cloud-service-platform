@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ok6cn31c1yc=ps0^yh6*aod1@nfqrdtq%mf&jd)yws+d^ux#e@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -121,7 +121,9 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, '/static/'),)
+STATIC_ROOT='static'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -152,3 +154,18 @@ PAGINATION_SETTINGS = {
     'MARGIN_PAGES_DISPLAYED': 3,
     'SHOW_FIRST_PAGE_WHEN_INVALID': True,
 }
+
+
+# 邮件相关配置
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST='smtp.qq.com' #腾讯QQ邮箱SMTP服务器地址
+EMAIL_PORT=25 #SMTP服务的端口号
+EMAIL_HOST_USER='3052573970@qq.com' #发送邮件的QQ邮箱
+EMAIL_HOST_PASSWORD='zzypvnpkjonjdcji' #在QQ邮箱->设置->账户->"POP3/IMAP...服务"里得到的在第三方登录QQ邮箱授权码
+EMAIL_USE_TLS=False #与SMTP服务器通信时，是否启动TLS链接(安全链接)默认False
+
+
+
+SENDFILE_BACKEND = "sendfile.backends.development"
+SENDFILE_ROOT = os.path.join(BASE_DIR, 'media')
+

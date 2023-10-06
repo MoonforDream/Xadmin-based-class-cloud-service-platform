@@ -15,8 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from classy.views import page400,page403,page404,page500
+from django.conf.urls import url
+from django.views import static
+from django.conf import settings
+
+handler404=page404
+handler400=page400
+handler403=page403
+handler500=page500
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('class/',include('classy.urls')),
+    url(r"^static/(?P<path>.*)$", static.serve, {"document_root": settings.STATIC_ROOT}, name='static'),
 ]

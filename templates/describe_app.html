@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>任务详情页</title>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/layui/2.5.6/css/layui.min.css">
+  <link rel="stylesheet" href="{% static 'css/font.css' %}">
+  <script src="https://cdn.bootcss.com/sweetalert/2.1.0/sweetalert.min.js"></script>
+  <style>
+	  .layui-row {
+	    display: flex;
+	    flex-direction: column;
+	  }
+  </style>
+</head>
+<body>
+  <div class="layui-container">
+    <div class="layui-row">
+      <div class="layui-col-md8">
+        <div class="layui-card">
+          <div class="layui-card-header">{{ task_name }}</div>
+          <div class="layui-card-body">
+            <div class="layui-row">
+              <div class="layui-col-md6">
+                <p>发布人：{{ send }}</p>
+                <p>发布时间：{{ start|safe }}</p>
+              </div>
+              <div class="layui-col-md6">
+                <p>截止时间：{{ end|safe }}</p>
+                <p>状态：{{ status }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="layui-row">
+              <div class="layui-col-md12">
+                <p>任务描述：</p>
+                <p>{{ task_describe }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="layui-col-md4">
+        <div class="layui-card">
+          <div class="layui-card-header">操作</div>
+          <div class="layui-card-body">
+            {% if path %}
+              <button class="layui-btn layui-btn-xs" style="flex:1;" id="download-btn"><i class="icon iconfont">&#xe714;</i> 下载附件</button>
+            {% endif %}
+            {% if filepath and staff == 1 %}
+              {% if file_type == 0 %}
+                <button class="layui-btn layui-btn-xs" style="flex:1;" id="download-btn1"><i class="icon iconfont">&#xe741;</i> 作业数据</button>
+              {% elif file_type == 1 %}
+                <button class="layui-btn layui-btn-xs" style="flex:1;" id="download-btn2"><i class="icon iconfont">&#xe741;</i> 作业数据</button>
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/layui/2.5.6/layui.min.js"></script>
+<script>
+        document.getElementById('download-btn').addEventListener('click', function() {
+            url:""
+        });
+    </script>
+<script>
+        document.getElementById('download-btn1').addEventListener('click', function() {
+            fetch('/class/download?file={{ filepath }}')
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'file.xlsx';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                })
+                .catch(error => console.error('下载文件失败：', error));
+        });
+    </script>
+<script>
+        document.getElementById('download-btn2').addEventListener('click', function() {
+            fetch('/class/download?file={{ filepath }}')
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'file.zip';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                })
+                .catch(error => console.error('下载文件失败：', error));
+        });
+    </script>
+</body>
+</html>

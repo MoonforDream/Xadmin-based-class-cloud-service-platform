@@ -54,8 +54,9 @@
                             <button class="layui-btn layui-btn-danger" onclick="deleteSelectedStudents()"><i class="layui-icon"></i>批量删除</button>
                             <button class="layui-btn" onclick="xadmin.open('添加学生','/class/add/',400,400)"><i class="layui-icon"></i>添加</button>
                             <button class="layui-btn" onclick="xadmin.open('导入学生表','/class/upload/',400,350)"><i class="icon iconfont">&#xe6ab;</i> 导入</button>
+                            <a type="button" class="layui-btn" href="{% url 'to_excel' %}" ><i class="layui-icon">&#xe67d;</i> 导出</a>
                         </div>
-                        <div class="layui-card-body ">
+                        <div class="layui-card-body layui-table-body layui-table-main">
                             <table class="layui-table layui-form">
                               <thead>
                                 <tr>
@@ -96,6 +97,9 @@
                                           <i class="layui-icon">&#xe601;</i>
                                         </a>
                                     {% endif %}
+                                    <a title="修改" onclick="xadmin.open('修改信息','/class/modify_role?name={{p.username}}',600,400)">
+                                        <i class="layui-icon">&#xe642;</i>
+                                    </a>
                                     <a title="删除" onclick="deleteStudent('{{ p.username }}')" href="javascript:;">
                                       <i class="layui-icon">&#xe640;</i>
                                     </a>
