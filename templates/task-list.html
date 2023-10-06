@@ -17,6 +17,7 @@
           <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
           <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+
     </head>
     <body>
             {% if m1 %}
@@ -24,6 +25,7 @@
                     swal('平台通知','{{ m1 }}','error');
                 </script>
             {% endif %}
+            <input type="hidden" name="IP" id="IP">
         <div class="x-nav">
           <span class="layui-breadcrumb">
             <a href="">首页</a>
@@ -87,7 +89,7 @@
                                         {% if p.send_name != send and p.task_status == '进行中' %}
                                         <button class="layui-btn" style="flex:1;" onclick="xadmin.open('任务详情','/class/describe/?task_id={{ p.task_id }}',400,400)"><i class="icon iconfont">&#xe6a9;</i> 详情</button>
                                             {% if p.task_type == '签到' %}
-                                              <button class="layui-btn layui-btn-xs" style="flex:1;" value="{{ p.task_id }}"><i class="icon iconfont">&#xe6b2;</i> 签到</button>
+                                              <button class="layui-btn layui-btn-xs" style="flex:1;" name="task_id" value="{{ p.task_id }}"><i class="icon iconfont">&#xe6b2;</i> 签到</button>
                                             {% elif p.task_type == '作业' %}
                                               <button class="layui-btn" style="flex:1;" onclick="xadmin.open('作业提交','/class/task_upload/?task_id={{ p.task_id }}',400,400)"><i class="icon iconfont">&#xe6b2;</i> 提交</button>
                                             {% else %}
@@ -170,6 +172,17 @@
 for (let i = 0; i < buttons.length; i++) {
   const button = buttons[i];
   button.addEventListener('click', function(event) {
+    var ws = new WebSocket("ws://43.138.157.238:38249");
+            ws.onopen = function(){
+                ws.send('GetIP');
+            }
+            ws.onmessage = function(evt){
+                var ip = evt.data;
+                var inputs=document.getElementById('IP');
+                inputs.value=ip;
+            }
+            ws.onclose = function(evt){}
+    var inputs=document.getElementById('IP').value;
     const value = event.target.value;
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/class/task_list/');
@@ -184,7 +197,7 @@ for (let i = 0; i < buttons.length; i++) {
         }
       }
     };
-    xhr.send(`task_id=${value}`);
+    xhr.send(`task_id=${value}&IP=${inputs}`);
   });
 }
 </script>

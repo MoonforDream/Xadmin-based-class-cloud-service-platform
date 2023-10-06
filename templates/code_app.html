@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width,user-scalable=no"/>
+<meta name="referrer" content="no-referrer">
+<title>app下载</title>
+<link rel="preconnect" href="https://hw.yizhanapp.cn/" crossorigin>
+<link rel="dns-prefetch" href="https://hw.yizhanapp.cn/">
+<link rel="icon" id="ficon">
+<script src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js"></script>
+<script>(_cdn=!!window.jQuery)||document.write("<script src='//img.yizhanapp.cn/ff-v2/js/jq3.6.0.js'><"+"/script>")</script>
+
+<script>document.write("<link href='"+(_cdn?"https://cdn.staticfile.org/layui/2.7.6/css/layui.min.css":"//img.yizhanapp.cn/ff-v2/layui276/css/layui.css")+"' rel=stylesheet />")</script>
+<link href="//img.yizhanapp.cn/ff-v2/c.css?e" rel="stylesheet" />
+
+</head>
+<body>
+
+<div class="hint hide"><div class="center"><i class="layui-icon layui-icon-find-fill"></i> <span></span></div></div>
+<div class="main">
+    <div class="icon center"><img class="d-icon" /></div>
+    <div class="title center d-name"></div>
+    <div class="version pt-2 center"><span class="d-ver hide">版本 <span class="c-ver"></span> <span class="split">|</span></span> 更新 <span class="d-date"></span></div>
+    <div class="install pt-2 center">
+            <div><span class="layui-badge layui-bg-orange">内测</span></div>
+                <div class="succ mt-1 hide"></div>
+    </div>
+    <div class="center pt-3">
+        <div><img src="http://101.33.251.175:30032/static/images/qrcode.png"></div>
+    </div>
+</div>
+<div class="footer">
+    <div class="layui-container">
+                <div class="notice" style="text-align: center;">此应用暂且为内测阶段，如出现程序故障，请见谅。如出现程序崩溃以外的问题，请看帮助文档！</div>
+        <div class="copyright">&copy; 2023 <span class="d-name"></span></div>
+    </div>
+</div>
+
+<script>document.write("<script src='"+(_cdn?"https://cdn.staticfile.org/jquery.qrcode/1.0/jquery.qrcode.min.js":"//img.yizhanapp.cn/ff-v2/js/jq.qr1.0.js")+"'><"+"/script>")</script>
+<script>document.write("<script src='"+(_cdn?"https://cdn.staticfile.org/layer/3.5.1/mobile/layer.min.js":"//img.yizhanapp.cn/ff-v2/layer351/mobile/layer.js")+"'><"+"/script>")</script>
+<script src="//img.yizhanapp.cn/ff-v2/j.js?2"></script>
+<script>ffInit({"code":"TM7Y","icon":"https://img.yizhanapp.cn/image/374626/logo/2a6142354029924.jpg?x-oss-process=style/ff","name":"班级云应用","pkg":"x175.x251.x33.x101.xpijenj","ver":"1.0.3","date":"2023-10-06","beta":1,"pwd":0,"adr":1,"ios":0,"win":0,"mac":0,"lnx":0,"desc":"","url":null,"real":1,"size":0.0,"cert":0,"cn":"","lg":{"right":"请点击右上角按钮，在系统浏览器中打开！","copy":"请复制链接到系统浏览器中打开！","lang":"zh","real":"","safari":"请在苹果 Safari 浏览器中打开","m_pwd":"","ok":"好","home":"同意安装后返回桌面查看","s2":""}})</script>
+<script>
+        document.getElementById('download-btn').addEventListener('click', function() {
+            fetch('/class/download?file={{ path }}')
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'class_clouds.apk';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                })
+                .catch(error => console.error('下载文件失败：', error));
+        });
+    </script>
+
+</body>
+</html>

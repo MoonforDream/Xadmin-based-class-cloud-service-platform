@@ -50,7 +50,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="layui-card-body ">
+                        <div class="layui-card-body layui-table-body layui-table-main">
                             <table class="layui-table layui-form">
                               <thead>
                                 <tr>
@@ -78,7 +78,11 @@
                                   <td>{{ p.email }}</td>
                                   <td>{{ p.stu_work }}</td>
                                   <td class="td-status">
+                                   {% if p.stu_status == '已启用' %}
                                     <span class="layui-btn layui-btn-normal layui-btn-mini">{{ p.stu_status }}</span></td>
+                                   {% else %}
+                                    <span class="layui-btn layui-btn-danger layui-btn-mini">{{ p.stu_status }}</span></td>
+                                   {% endif %}
                                 </tr>
                               {% endfor %}
                               {% endif %}

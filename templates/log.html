@@ -39,7 +39,7 @@
                             <li class="layui-timeline-item">
                               <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
                               <div class="layui-timeline-content layui-text">
-                                <h3 class="layui-timeline-title">2019-03-30</h3>
+                                <h3 class="layui-timeline-title">2023-03-30</h3>
                                 <p>
                                   修改 x_admin_show 弹出窗口实现最大化，默认窗口非最大化，如果需要弹出窗口最大化，在最后一个参数传 true <br>  
 
@@ -52,48 +52,114 @@
                             <li class="layui-timeline-item">
                               <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
                               <div class="layui-timeline-content layui-text">
-                                <h3 class="layui-timeline-title">2019-03-19</h3>
-                                <p>增加非菜单打开tab函数 x_admin_add_to_tab(title,url,is_refresh) titel为tab标题,url为打开页面地址,is_refresh 可选参数，重复点击是否刷新，默认为false不刷新,true为重复点击刷新页面<br>
+                                <h3 class="layui-timeline-title">2023-03-31</h3>
+                                <p>增加了雪花算法来统一班级编号，将各个分散学生集中起来<br>
 用法:<br>
-index.html 中直接 x_admin_add_to_tab('在tab打开','http://www.baidu.com',true)<br>
-iframe页面中  用 parent.x_admin_add_to_tab('在tab打开','http://www.163.com',true)</p>
+班长注册的帐号具有唯一性的班级编号，进行添加学生<br>
+在学生管理模块，实现了显示班级全体学生功能</p>
                               </div>
                             </li>
                             <li class="layui-timeline-item">
                               <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
                               <div class="layui-timeline-content layui-text">
-                                <h3 class="layui-timeline-title">2019-03-07</h3>
+                                <h3 class="layui-timeline-title">2023-03-31</h3>
                                 <p>
-                                  是否开启刷新记忆tab功能, 通过index 页面增加 var is_remember = false;不增加默认开启
+                                  实现了学生管理的增删改查功能，并增加了权限管理，针对某一个群体的权限限制
                                 </p>
                               </div>
                             </li>
                             <li class="layui-timeline-item">
                               <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
                               <div class="layui-timeline-content layui-text">
-                                <h3 class="layui-timeline-title">2019-03-07</h3>
+                                <h3 class="layui-timeline-title">2023-04-01</h3>
                                 <p>
-                                  增加tab双击关闭当前tab<br>
-增加tab右键菜单，可实现 关闭当前/关闭其它/关闭全部
+                                  实现学生花名册导入功能<br>
+在学生管理模块中，可以直接导入包含学生学号姓名等信息的excel表格
                                 </p>
                               </div>
                             </li>
                             <li class="layui-timeline-item">
                               <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
                               <div class="layui-timeline-content layui-text">
-                                <h3 class="layui-timeline-title">2019-03-07</h3>
+                                <h3 class="layui-timeline-title">2023-04-02</h3>
                                 <p>
-                                  开发升级为2.1, 引入layui 2.4.5<br>
-增加 html 根标签增加 class="x-admin-sm" 可以实现整体方格字体的细化 原字体14px 变成12px<br>16px变为14px，对于有些需要显示更多信息的页面比较友好 去除x-admin-sm 恢复原来样式<br>
-增加动态表格事例<br>
-增加左侧点击刷新tab 可根据实际需要选择 在 sub-menu li 标签中加上属性 date-refresh="1" ,该链接点击会进行刷新<br>
-增加弹出层函数 x_admin_father_reload() 该函数可以实现对父窗口的刷新<br>
-刷新保留左侧展开 （利用cookie 保存点击过的 索引，刷新读取cookie对应的索引 进行展开左侧）<br>
-增加404错误页面<br>
-tab记忆功能，刷新保留之前打开的tab （利用cookie 保存点击过的 索引，刷新读取cookie对应的索引 进行打开)
+                                  开发并添加了发布任务模块以及对注册邮件发送功能进行了升级<br>
+任务发布模块包含三种任务的发布，以及任务信息查看、任务数据反馈等<br>
+淘汰掉邮箱验证码方式，改用激活帐号进行注册<br>
+添加了异步任务，利用session保持登录会话，以及更改了学生模块管理员权限<br>
                                 </p>
                               </div>
                             </li>
+                            <li class="layui-timeline-item">
+                              <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                              <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">2023-04-04</h3>
+                                <p>实现了签到任务的发布以及ip解析检测签到位置，以及任务查看功能<br>
+解决了任务时间差<0的情况，记录发布位置，解析ip得到签到用户的地址，检测范围合法性<br>
+对任务添加了id，并增加了查询任务功能<br>
+对任务状态检验算法进行了加强，避免了未完成却显示完成的bug<br>
+                                </p>
+                              </div>
+                            </li>
+                              <li class="layui-timeline-item">
+                              <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                              <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">2023-04-07</h3>
+                                <p>
+                                  完善任务查看功能，开发任务数据反馈模块<br>
+对任务状态检验加强，增加了无法重复提交功能<br>
+对任务id进行解析，获取全班用户，将未完成用户反馈到数据反馈列表中<br>
+                                </p>
+                              </div>
+                            </li>
+                              <li class="layui-timeline-item">
+                              <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                              <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">2023-04-09</h3>
+                                <p>开发了文件收集作业以及分组任务<br>
+增加了上传附件功能，以及提供任务显示下的下载附件按钮，以及上传文件作业功能<br>
+增加了分组任务，将各组记录在excel表格中，并提供下载反馈数据功能<br>
+                                </p>
+                              </div>
+                            <li class="layui-timeline-item">
+                              <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                              <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">2023-04-11</h3>
+                                <p>
+                                  增强了任务数据结果下载的权限设置，避免了他人抄袭的可能性<br>
+                                </p>
+                              </div>
+                            </li>
+                            </li>
+                              <li class="layui-timeline-item">
+                              <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                              <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">2023-04-12</h3>
+                                <p>
+                                  提供了个人信息更改功能以及邮件、密码等重要信息邮件激活修改功能<br>
+                                    增加了作业未完成提示<br>
+                                </p>
+                              </div>
+                            </li>
+                            <li class="layui-timeline-item">
+                              <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                              <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">2023-10-02</h3>
+                                <p>
+                                  解决了修改学生信息跳转bug，以及亲测发现作业上传文件大小限制<br>
+                                  100M以内上传时间低于1分钟，200M文件上传时间2分钟左右，时间随着文件大小递增<br>
+                                </p>
+                              </div>
+                            </li><li class="layui-timeline-item">
+                              <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                              <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">2023-10-03</h3>
+                                <p>
+                                  增加了对未按规则输入所产生的无效任务进行拦截<br>
+                                </p>
+                              </div>
+                            </li>
+
                           </ul>
                     </div>
                   </div>

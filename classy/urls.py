@@ -1,6 +1,7 @@
 from django.urls import path,re_path
 from classy import views
-from django.conf.urls import handler404
+
+
 
 urlpatterns = [
     path('admin/', views.index),
@@ -21,12 +22,33 @@ urlpatterns = [
     re_path(r'^activate/$',views.activate,name='activate'),
     path('task_upload/',views.task_uplaod),
     path('describe/',views.describe),
-    path('send/',views.send_zip),
     path('change/',views.changestatus),
     path('queue/',views.queue),
     path('only/',views.only),
     path('add/',views.add),
+    re_path(r'^modify_role/$',views.modify_role,name='modify_role'),
     re_path(r'^modify/$', views.modify, name='modify'),
     re_path(r'^changeemail/$', views.changeemail, name='changeemail'),
     re_path(r'^changepass/$',views.changepass,name='changepass'),
+    re_path(r'^download/$',views.download_file,name='download_file'),
+    path('login_app/',views.login_view_app),
+    path('welcome_app/',views.welcome_app),
+    path('task_list_app/',views.task_list_app),
+    path('form_app/',views.form_app),
+    path('feedback_app/',views.feedback_app),
+    path('committee_app/',views.committee_app),
+    path('role_app/',views.role_app),
+    path('help_app/',views.help_app),
+    path('only_app/',views.only_app),
+    path('logout/',views.logout_view),
+    path('logout_app/',views.logout_view_app),
+    path('register_app/',views.register_app),
+    path('password_app/',views.password_app),
+    path('app/',views.download_app),
+    re_path(r'^modify_app/$', views.modify_app, name='modify_app'),
+    re_path(r'^changeemail_app/$', views.changeemail_app, name='changeemail_app'),
+    re_path(r'^changepass_app/$', views.changepass_app, name='changepass_app'),
+    re_path(r'^activate_app/$',views.activate_app,name='activate_app'),
+    path('to_excel/',views.to_excel,name='to_excel'),
+    path('share/',views.share_app),
 ]

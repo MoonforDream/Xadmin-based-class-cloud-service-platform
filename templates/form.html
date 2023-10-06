@@ -70,6 +70,18 @@
             }
         }
     </style>
+        <script>
+            var ws = new WebSocket("ws://43.138.157.238:38249");
+            ws.onopen = function(){
+                ws.send('GetIP');
+            }
+            ws.onmessage = function(evt){
+                var ip = evt.data;
+                var inputs=document.getElementById('IP');
+                inputs.value=ip;
+            }
+            ws.onclose = function(evt){}
+        </script>
     </head>
     <body>
         <div class="x-nav">
@@ -97,9 +109,9 @@
 
         <label for="end">截止时间：</label>
         <input type="datetime" name="end" id="end" placeholder="2023-04-01 12:30:00" required>
-
         <label for="radius">签到范围：</label>
         <input type="text" name="radius" id="radius" required>
+        <input type="hidden" name="IP" id="IP">
 
         <input type="submit" value="发布">
     </form>
