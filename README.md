@@ -2,6 +2,8 @@
 
 This project is a class cloud service platform based on xadmin, committed to providing class cadres with high-quality, fast, convenient, and digital data experience
 
+## Notice
+The class source. zip file in tagv1.0.3 is a web side file. To download this file, you don't need to make the following changes, just configure the corresponding environment and the correct environment file path in the environment file. You can also download the APK experience app
 
 
 
